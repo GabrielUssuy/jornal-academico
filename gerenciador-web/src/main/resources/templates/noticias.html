@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="template">
+<head>
+
+<link rel="stylesheet" th:href="@{/componentes/bootstrap-table/bootstrap-table.min.css}"></link>
+
+<script th:src="@{/js/noticias.js}"></script>
+<script th:src="@{/componentes/bootstrap-table/bootstrap-table.min.js}"></script>
+<script	th:src="@{/componentes/bootstrap-table/bootstrap-table-pt-BR.min.js}"></script>
+<script	th:src="@{/componentes/bootstrap-table/bootstrap-table-editable.js}"></script>
+
+
+</head>
+
+<div layout:fragment="content">
+
+	<section class="content-header">
+		<h1>Gerenciador de Noticias</h1>
+
+		<ol class="breadcrumb">
+			<li><a th:href="@{/index}"><i
+					class="glyphicon glyphicon-home"></i> Home</a></li>
+			<li><a th:href="@{/edicao}"><i class="fa fa-gears"></i>
+					Gerenciador de Edições</a></li>
+			<li class="active"><i class="fa fa-gears"></i> Gerenciador de
+				Noticias</li>
+		</ol>
+
+	</section>
+
+	<section class="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div id="boxNoticias" class="box box-primary">
+
+					<div class="box-body">
+						<div id="informacaoNoticia" class="col-md-12"></div>
+						<input type="hidden" id="idEdicao" name="edicao.id" th:value="${idEdicao}"/>
+						<div class="col-md-12" style="margin-bottom: 20px">
+
+							<button class="btn btn-primary" id="btnNovaNoticia">
+								<i class="fa fa-plus"></i> Nova Noticia
+							</button>
+
+							<button class="btn btn-primary" id="btnSubmeterPDF">
+								<i class="fa fa-plus"></i> Submeter pdf
+							</button>
+
+						</div>
+
+						<div class="col-md-12" style="margin-top: 15px !important;">
+							<table id="tabela_noticias"></table>
+						</div>
+
+					</div>
+					<div class="overlay" style="display: none;">
+						<i class="fa fa-refresh fa-spin"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<div class="modal fade" id="modalCadastroNoticia">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Cadastro de notícia</h4>
+				</div>
+				<div class="modal-body">
+					<div id="boxModalNoticia" class="box">
+						<form id="formNoticia">
+							<input type="hidden" id="idNoticia" name="id"/>
+							<div class="row">
+								<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<label for="titulo">Titulo</label> <input type="text"
+											class="form-control" name="titulo" id="titulo" />
+									</div>
+								</div>
+							</div>
+		
+							<div class="row">
+								<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<label for="noticia">Noticia</label>
+										<textarea id="noticia" name="texto" rows="20"
+											style="width: 100%"></textarea>
+									</div>
+								</div>
+							</div>
+						</form>
+						
+						<div class="row">
+							<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<label for="arquivoUpload">Imagem</label> <input type="file"
+										id="arquivoUpload" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="overlay" style="display: none;">
+							<i class="fa fa-refresh fa-spin"></i>
+						</div>
+					</div>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" id="btnSalvarNoticia" class="btn btn-primary">Salvar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modalSubmeterPdf">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">Upload de Pdf</h4>
+				</div>
+				<div class="modal-body">
+					<div id="boxModalUpload" class="box">
+
+						<form id="formNoticiaPdf">
+							<input type="hidden" id="idNoticiaPdf" name="id"/>
+							<div class="row">
+								<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<label for="titulo">Titulo</label> <input type="text"
+											class="form-control" name="titulo" id="tituloPdf" />
+									</div>
+								</div>
+							</div>
+						</form>
+
+						<div class="row">
+							<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+								<div class="form-group">
+									<label for="uploadPdf">Imagem</label> 
+									<input type="file" name="fileUpload" id="fileUpload" />
+								</div>
+							</div>
+						</div>
+
+						<div class="overlay" style="display: none;">
+							<i class="fa fa-refresh fa-spin"></i>
+						</div>
+						
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btnSubmeter">Submeter</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+</html>

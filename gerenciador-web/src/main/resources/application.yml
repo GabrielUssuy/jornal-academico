@@ -1,0 +1,12 @@
+spring:
+  thymeleaf:
+    cache: false
+
+url:
+ arquivo_salvar: http://localhost:8081/backend/arquivo/salvar
+ edicao_salvar: http://localhost:8081/backend/edicao/salvar
+ edicao_deletar: http://localhost:8081/backend/edicao/deletar
+ edicao_listar: http://localhost:8081/backend/edicao/listar
+ noticia_salvar: http://localhost:8081/backend/noticia/salvar
+ noticia_listar: http://localhost:8081/backend/noticia/edicao/{id}/listar
+ noticia_deletar: http://localhost:8081/backend/noticia/deletar
