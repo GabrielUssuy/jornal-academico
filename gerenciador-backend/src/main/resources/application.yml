@@ -1,0 +1,12 @@
+spring:
+ jpa:
+  database-platform: org.hibernate.dialect.MySQLDialect
+  show-sql: true
+ datasource:
+  url: jdbc:mysql://localhost:3306/jornal_academico?zeroDateTimeBehavior=convertToNull&useSSL=false
+  username: root
+  password: masterkey
+
+server:
+ contextPath: /backend
+ port: 8081
