@@ -1,7 +1,6 @@
 package br.edu.utfpr.gerenciadorbackend.config;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,15 +11,16 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import br.edu.utfpr.gerenciadorbackend.service.TokenService;
 
 @Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class TokenFilter implements Filter {
 
 	@Autowired private TokenService tokenService;
