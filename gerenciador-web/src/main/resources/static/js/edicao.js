@@ -201,7 +201,18 @@ window.operateEvents = {
     },
 	'click .remove': function (e, value, row, index) {
 		console.log("Remover");
-		deletarEdicao(row);
+		swal({
+			  title: "Atenção",
+			  text: "Realmente deseja deletar a edição ?",
+			  icon: "warning",
+			  buttons: true,
+			  dangerMode: true,
+			})
+			.then((willDelete) => {
+			  if (willDelete) {
+				  deletarEdicao(row);
+			  } 
+			});
 	},
     'click .publish': function (e, value, row, index) {
     	console.log("Publicar");

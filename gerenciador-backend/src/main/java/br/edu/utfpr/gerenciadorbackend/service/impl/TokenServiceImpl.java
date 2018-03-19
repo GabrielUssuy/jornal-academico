@@ -20,7 +20,7 @@ public class TokenServiceImpl implements TokenService{
 	public boolean validarToken(String token) {
 		try {
 			RestTemplate rest = new RestTemplate();
-			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/oauth/check_token")
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8090/auth/oauth/check_token")
 					.queryParam("token", token);
 			HttpEntity<String> entity = new HttpEntity<String>(createHeaders("client", "secret"));
 			HttpStatus statusCode = rest.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, String.class).getStatusCode();

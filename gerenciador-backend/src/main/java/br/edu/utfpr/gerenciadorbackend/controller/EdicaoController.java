@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,15 @@ public class EdicaoController {
 	public ResponseEntity<?> listarTodas(){
 		try {
 			return ResponseEntity.ok(edicaoService.listarTodas());
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	@GetMapping("/{id}")
+	public ResponseEntity<?> buscarPorId(@PathVariable Integer id){
+		try {
+			return ResponseEntity.ok(edicaoService.buscarPorId(id));
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().build();
 		}

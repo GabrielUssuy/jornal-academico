@@ -30,6 +30,9 @@ public class Noticia implements Serializable{
 	@Column(name="texto")
 	private String texto;
 	
+	@Column(name="status")
+	private String status;
+	
 	@ManyToOne
 	@JoinColumn(name="id_edicao")
 	private Edicao edicao;
@@ -64,6 +67,14 @@ public class Noticia implements Serializable{
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public Edicao getEdicao() {

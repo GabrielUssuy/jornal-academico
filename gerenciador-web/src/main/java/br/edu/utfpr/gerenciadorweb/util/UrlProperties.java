@@ -15,9 +15,11 @@ public class UrlProperties implements Serializable {
 	private String edicao_salvar;
 	private String edicao_deletar;
 	private String edicao_listar;
+	private String edicao_buscar_por_id;
 	private String noticia_salvar;
 	private String noticia_listar;
 	private String noticia_deletar;
+	private String token_solicitar;
 	
 	public String getArquivo_salvar() {
 		return arquivo_salvar;
@@ -43,6 +45,12 @@ public class UrlProperties implements Serializable {
 	public void setEdicao_listar(String edicao_listar) {
 		this.edicao_listar = edicao_listar;
 	}
+	public String getEdicao_buscar_por_id() {
+		return edicao_buscar_por_id;
+	}
+	public void setEdicao_buscar_por_id(String edicao_buscar_por_id) {
+		this.edicao_buscar_por_id = edicao_buscar_por_id;
+	}
 	public String getNoticia_salvar() {
 		return noticia_salvar;
 	}
@@ -60,6 +68,12 @@ public class UrlProperties implements Serializable {
 	}
 	public void setNoticia_deletar(String noticia_deletar) {
 		this.noticia_deletar = noticia_deletar;
+	}
+	public String getToken_solicitar() {
+		return token_solicitar;
+	}
+	public void setToken_solicitar(String token_solicitar) {
+		this.token_solicitar = token_solicitar;
 	}
 	
 }

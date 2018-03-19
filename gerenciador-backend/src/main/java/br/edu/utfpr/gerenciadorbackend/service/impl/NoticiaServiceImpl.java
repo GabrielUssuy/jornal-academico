@@ -9,6 +9,7 @@ import br.edu.utfpr.gerenciadorbackend.model.Noticia;
 import br.edu.utfpr.gerenciadorbackend.repository.NoticiaRepository;
 import br.edu.utfpr.gerenciadorbackend.service.EdicaoService;
 import br.edu.utfpr.gerenciadorbackend.service.NoticiaService;
+import br.edu.utfpr.gerenciadorbackend.util.Constantes;
 
 @Service
 public class NoticiaServiceImpl implements NoticiaService{
@@ -19,6 +20,9 @@ public class NoticiaServiceImpl implements NoticiaService{
 	@Override
 	public Noticia salvar(Noticia noticia) {
 		noticia.setEdicao(edicaoService.buscarPorId(noticia.getEdicao().getId()));
+		if(noticia.getStatus() == null) {
+			noticia.setStatus(Constantes.STATUS_ATIVO);
+		}
 		return repository.save(noticia);
 	}
 
@@ -29,7 +33,9 @@ public class NoticiaServiceImpl implements NoticiaService{
 
 	@Override
 	public boolean deletar(Noticia noticia) {
-		repository.delete(noticia);
+		noticia = repository.findOne(noticia.getId());
+		noticia.setStatus(Constantes.STATUS_EXCLUIDO);
+		repository.save(noticia);
 		return true;
 	}
 	

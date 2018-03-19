@@ -15,9 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.utfpr.gerenciadorweb.enums.TipoArquivo;
+import br.edu.utfpr.gerenciadorweb.model.Edicao;
 import br.edu.utfpr.gerenciadorweb.model.JSonResult;
 import br.edu.utfpr.gerenciadorweb.model.Noticia;
 import br.edu.utfpr.gerenciadorweb.service.ArquivoService;
+import br.edu.utfpr.gerenciadorweb.service.EdicaoService;
 import br.edu.utfpr.gerenciadorweb.service.NoticiaService;
 
 @Controller
@@ -28,11 +30,14 @@ public class NoticiasController {
 	private ArquivoService arquivoService;
 	@Autowired
 	private NoticiaService noticiaService;
+	@Autowired
+	private EdicaoService edicaoService;
 
 	@GetMapping("/edicao/{id}")
 	public ModelAndView gerenciar(@PathVariable("id") Integer idEdicao) {
 		ModelAndView mv = new ModelAndView("noticias");
-		mv.addObject("idEdicao", idEdicao);
+		Edicao edicao = edicaoService.buscarPorId(idEdicao);
+		mv.addObject("edicao", edicaoService.buscarPorId(idEdicao));
 		return mv;
 	}
 

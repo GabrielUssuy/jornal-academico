@@ -9,4 +9,5 @@ public interface EdicaoService {
 	public boolean deletar(Edicao edicao);
 	public Edicao publicar(Edicao edicao);
 	public List<Edicao> listarTodas();
+	public Edicao buscarPorId(Integer idEdicao);
 }

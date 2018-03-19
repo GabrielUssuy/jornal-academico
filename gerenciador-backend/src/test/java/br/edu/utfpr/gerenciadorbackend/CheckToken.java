@@ -22,7 +22,7 @@ public class CheckToken {
 			RestTemplate rest = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
-			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8080/oauth/check_token")
+			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://localhost:8090/auth/oauth/check_token")
 					.queryParam("token", token);
 			HttpEntity<String> entity = new HttpEntity<>(headers);
 			HttpStatus ok = rest.exchange(builder.build().encode().toUri(), HttpMethod.GET, new HttpEntity<String>(createHeaders("client", "secret")), String.class).getStatusCode();

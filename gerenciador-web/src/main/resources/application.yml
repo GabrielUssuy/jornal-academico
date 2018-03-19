@@ -7,6 +7,8 @@ url:
  edicao_salvar: http://localhost:8081/backend/edicao/salvar
  edicao_deletar: http://localhost:8081/backend/edicao/deletar
  edicao_listar: http://localhost:8081/backend/edicao/listar
+ edicao_buscar_por_id: http://localhost:8081/backend/edicao/{id}
  noticia_salvar: http://localhost:8081/backend/noticia/salvar
  noticia_listar: http://localhost:8081/backend/noticia/edicao/{id}/listar
  noticia_deletar: http://localhost:8081/backend/noticia/deletar
+ token_solicitar: http://localhost:8090/auth/oauth/token

@@ -2,6 +2,7 @@ package br.edu.utfpr.gerenciadorweb.client.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -13,9 +14,12 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import br.edu.utfpr.gerenciadorweb.client.RestClientService;
+import br.edu.utfpr.gerenciadorweb.service.TokenService;
 
 @Service
 public class RestClientServiceImpl implements RestClientService{
+	
+	@Autowired TokenService tokenService;
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -25,6 +29,7 @@ public class RestClientServiceImpl implements RestClientService{
 			RestTemplate rest = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
+			headers.add("token", tokenService.getToken().getAccess_token());
 			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 			HttpEntity<String> entity = new HttpEntity<>(headers);
 			result = rest.exchange(builder.build().encode().toUri(), httpMethod, entity, typeReference);
@@ -44,6 +49,7 @@ public class RestClientServiceImpl implements RestClientService{
 			RestTemplate restTemplate = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
+			headers.add("token", tokenService.getToken().getAccess_token());
 			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 			HttpEntity<Object> entity = new HttpEntity<>(object, headers);
 			result = restTemplate.exchange(builder.build().encode().toUri(), httpMethod, entity, typeReference);
@@ -63,6 +69,7 @@ public class RestClientServiceImpl implements RestClientService{
 			RestTemplate restTemplate = new RestTemplate();
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
+			headers.add("token", tokenService.getToken().getAccess_token());
 			UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 			HttpEntity<String> entity = new HttpEntity<>(headers);
 			result = restTemplate.exchange(builder.build().encode().toUri(), httpMethod, entity, typeReference);

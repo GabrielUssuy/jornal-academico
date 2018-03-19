@@ -13,7 +13,7 @@ import br.edu.utfpr.gerenciadorbackend.model.Noticia;
 @Lazy
 public interface NoticiaRepository extends JpaRepository<Noticia, Integer> {
 	
-	@Query("select n from Noticia n where n.edicao.id = ?1")
+	@Query(" select n from Noticia n where n.edicao.id = ?1 and n.status <> 'EXCLUIDO' ")
 	public List<Noticia> listarPorEdicao(Integer idEdicao);
 
 }

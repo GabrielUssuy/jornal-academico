@@ -17,9 +17,14 @@ $(function(){
 	});
 	
 	$("#btnSalvarNoticia").click(function(){
+		console.log("Salvar noticia")
 		salvarNoticia($("#formNoticia").serialize());
 	});
 	
+	$("#btnSalvarEdicao").click(function(){
+		console.log("Salvar Edicao");
+		salvarEdicao($("#formEdicao").serialize());
+	});
 	
 });
 
@@ -54,6 +59,36 @@ function salvarNoticia(form) {
 		},
 		complete : function() {
 			$('#boxEdicoes').find('.overlay').hide();
+		}
+	});
+}
+
+function salvarEdicao(form){
+	$.ajax({
+		dataType : 'json',
+		contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		type : 'post',
+		url : UtilsJS.context_path() + '/edicao/salvar',
+		data: form,
+		beforeSend : function() {
+//			$('#boxEdicoes').find('.overlay').show();
+		},
+		success : function(data) {
+			if (data.id == 1) {
+				swal("Sucesso", "Edição salva com sucesso !", "success")
+//				var edicao = data.resultObject;
+//				window.location.href = UtilsJS.context_path() + '/noticias/edicao/'+edicao.id;
+			} else if (data.id == 2) {
+				criarAlert('informacaoEdicao', 'warning', data.mensagem);
+			} else {
+				criarAlert('informacaoEdicao', 'error', data.mensagem);
+			}
+		},
+		error : function() {
+			criarAlert('informacaoEdicao','error','Ocorreu um erro durante ao salvar a edição, por favor, tente novamente mais tarde.');
+		},
+		complete : function() {
+//			$('#boxEdicoes').find('.overlay').hide();
 		}
 	});
 }
@@ -287,6 +322,17 @@ window.operateEvents = {
 	    },
 		'click .remove': function (e, value, row, index) {
 			console.log("Remover");
-			deletarNoticia(row);
+			swal({
+				  title: "Atenção",
+				  text: "Realmente deseja deletar a notícia ?",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+					  deletarNoticia(row);
+				  } 
+				});
 		}
 };

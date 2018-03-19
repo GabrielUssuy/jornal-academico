@@ -8,7 +8,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
 import br.edu.utfpr.gerenciadorweb.client.RestClientService;
-import br.edu.utfpr.gerenciadorweb.enums.TipoNoticia;
 import br.edu.utfpr.gerenciadorweb.model.Noticia;
 import br.edu.utfpr.gerenciadorweb.service.NoticiaService;
 import br.edu.utfpr.gerenciadorweb.util.UrlProperties;
