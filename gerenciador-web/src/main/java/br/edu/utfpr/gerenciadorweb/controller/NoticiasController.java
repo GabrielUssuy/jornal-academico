@@ -113,4 +113,18 @@ public class NoticiasController {
 
 		return jr;
 	}
+	
+	@GetMapping("/listar-imagens/noticia/{id}")
+	public @ResponseBody JSonResult listarImagensNoticia(@PathVariable("id") Integer idNoticia) {
+		JSonResult jr = new JSonResult();
+		try {
+			jr.setId(1);
+			jr.setResultObject(arquivoService.listarPorNoticia(idNoticia));
+		} catch (Exception e) {
+			e.printStackTrace();
+			jr.setId(0);
+			jr.setMensagem("Erro");
+		}
+		return jr;
+	}
 }

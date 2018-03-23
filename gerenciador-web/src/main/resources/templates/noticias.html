@@ -21,12 +21,9 @@
 		<h1>Gerenciador de Noticias</h1>
 
 		<ol class="breadcrumb">
-			<li><a th:href="@{/index}"><i
-					class="glyphicon glyphicon-home"></i> Home</a></li>
-			<li><a th:href="@{/edicao}"><i class="fa fa-gears"></i>
-					Gerenciador de Edições</a></li>
-			<li class="active"><i class="fa fa-gears"></i> Gerenciador de
-				Notícias</li>
+			<li><a th:href="@{/index}"><i class="glyphicon glyphicon-home"></i> Home</a></li>
+			<li><a th:href="@{/edicao}"><i class="fa fa-gears"></i>Gerenciador de Edições</a></li>
+			<li class="active"><i class="fa fa-gears"></i> Gerenciador de Notícias</li>
 		</ol>
 
 	</section>
@@ -127,13 +124,25 @@
 								</div>
 							</div>
 						</form>
-						
+					</div>
+					
+					
+					<div id="boxModalImagensNoticia" class="box">
 						<div class="row">
 							<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 								<div class="form-group">
-									<label for="arquivoUpload">Imagem</label> <input type="file"
-										id="arquivoUpload" />
+									<label for="arquivoUpload">Imagem</label> 
+									<input type="file" id="arquivoUpload" />
 								</div>
+									<button class="btn btn-primary" id="btnUploadImagemNoticia">
+										<i class="fa fa-plus"></i> Upload
+									</button>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12" style="margin-top: 15px !important;">
+								<table id="tabela_imagens_noticia"></table>
 							</div>
 						</div>
 						

@@ -3,6 +3,7 @@ package br.edu.utfpr.gerenciadorweb.service.impl;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationHome;
@@ -26,11 +27,13 @@ public class ArquivoServiceImpl implements ArquivoService {
 	UrlProperties urls;
 
 	@Override
-	public Arquivo salvar(MultipartFile mfile, String tipo, Integer idNoticia) throws IllegalStateException, IOException {
-		
+	public Arquivo salvar(MultipartFile mfile, String tipo, Integer idNoticia)
+			throws IllegalStateException, IOException {
+
 		String dirRaiz = new ApplicationHome(this.getClass()).getDir().toString();
-		String novoNome = LocalDateTime.now().toString().replaceAll("[^0-9]", "") + getExtensao(mfile.getOriginalFilename());
-		String pathDestino = dirRaiz + "\\arquivos\\" + novoNome ;
+		String novoNome = LocalDateTime.now().toString().replaceAll("[^0-9]", "")
+				+ getExtensao(mfile.getOriginalFilename());
+		String pathDestino = dirRaiz + "\\arquivos\\" + novoNome;
 
 		File file = new File(pathDestino);
 		mfile.transferTo(file);
@@ -43,7 +46,7 @@ public class ArquivoServiceImpl implements ArquivoService {
 		arquivo.setExtensao(getExtensao(file.getName()));
 		arquivo.setNoticia(new Noticia());
 		arquivo.getNoticia().setId(idNoticia);
-		
+
 		return (Arquivo) restClient.consumeWithSingleObjectResult(arquivo, urls.getArquivo_salvar(), HttpMethod.POST,
 				new ParameterizedTypeReference<Arquivo>() {
 				});
@@ -52,6 +55,13 @@ public class ArquivoServiceImpl implements ArquivoService {
 
 	private String getExtensao(String nomeArquivo) {
 		return nomeArquivo.substring(nomeArquivo.lastIndexOf("."), nomeArquivo.length());
+	}
+
+	@Override
+	public List<Arquivo> listarPorNoticia(Integer idNoticia) throws Exception {
+		return restClient.consumeWithListResult(urls.getArquivo_listar_imagens_por_noticia().replace("{id}", idNoticia.toString()),
+				HttpMethod.GET, new ParameterizedTypeReference<List<Arquivo>>() {
+				});
 	}
 
 }

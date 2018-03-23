@@ -12,6 +12,7 @@ public class UrlProperties implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String arquivo_salvar;
+	private String arquivo_listar_imagens_por_noticia;
 	private String edicao_salvar;
 	private String edicao_deletar;
 	private String edicao_listar;
@@ -26,6 +27,12 @@ public class UrlProperties implements Serializable {
 	}
 	public void setArquivo_salvar(String arquivo_salvar) {
 		this.arquivo_salvar = arquivo_salvar;
+	}
+	public String getArquivo_listar_imagens_por_noticia() {
+		return arquivo_listar_imagens_por_noticia;
+	}
+	public void setArquivo_listar_imagens_por_noticia(String arquivo_listar_imagens_por_noticia) {
+		this.arquivo_listar_imagens_por_noticia = arquivo_listar_imagens_por_noticia;
 	}
 	public String getEdicao_salvar() {
 		return edicao_salvar;

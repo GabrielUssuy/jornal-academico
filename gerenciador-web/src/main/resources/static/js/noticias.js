@@ -4,6 +4,7 @@ $(function(){
 	
 	$("#btnNovaNoticia").click(function(){
 		$("#modalCadastroNoticia").modal("show");
+		montarTabelaImagensNoticia();
 	});
 	
 	$("#btnSubmeterPDF").click(function(){
@@ -150,6 +151,35 @@ function listarNoticias(){
 	});
 }
 
+
+function listarImagensNoticia(idNoticia){
+	$.ajax({
+		dataType : 'json',
+		contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		type : 'get',
+		url : UtilsJS.context_path() + '/noticias/listar-imagens/noticia/'+idNoticia,
+		beforeSend : function() {1
+			$('#boxModalImagensNoticia').find('.overlay').show();
+		},
+		success : function(data) {
+			if (data.id == 1) {
+				 $('#tabela_imagens_noticia').bootstrapTable('load', data.resultObject);
+			} else if (data.id == 2) {
+				console.log(data.mensagem);
+			} else {
+				console.log(data.mensagem);
+			}
+		},
+		error : function() {
+			console.log("Erro");
+		},
+		complete : function() {
+			$('#boxModalImagensNoticia').find('.overlay').hide();
+		}
+	});
+}
+
+
 function deletarNoticia(row){
 	$.ajax({
 		dataType : 'json',
@@ -255,6 +285,39 @@ function fecharModalSubmeterPdf(){
 	listarNoticias();
 }
 
+function montarTabelaImagensNoticia(){
+	$('#tabela_imagens_noticia').bootstrapTable('destroy');
+    $('#tabela_imagens_noticia').bootstrapTable({
+        cache: false,
+        striped: true,
+        clickToSelect: true,
+        pagination: true,
+        pageSize: 7,
+        pageList: [7],
+        uniqueId: 'id',
+        onDblClickRow: function (row, $element) {
+        },
+        columns: [ {
+            field: 'id',
+            title: 'Id',
+            align: 'left',
+            valign: 'middle'
+        }, {
+        	field: 'nomeOriginal',
+        	title: 'Nome',
+        	align: 'center',
+        	valign: 'middle',
+        }, {
+	         title: 'Excluir',
+	         align: 'center',
+	         valign: 'middle',
+	         events: operateEvents,
+	         formatter: removeImageFormatter
+		}]
+    });
+}
+
+
 function montarTabelaNoticias(){
 	$('#tabela_noticias').bootstrapTable('destroy');
     $('#tabela_noticias').bootstrapTable({
@@ -305,6 +368,13 @@ function removeFormatter(value, row, index) {
         '</a>  ',
     ].join('');
 }
+function removeImageFormatter(value, row, index){
+	return [
+        '<a class="remove_image" href="javascript:void(0)" title="Clique para excluir">',
+        '<i class="fa fa-trash"></i>',
+        '</a>  ',
+    ].join('');
+}
 window.operateEvents = {
 		'click .edit': function (e, value, row, index) {
 			console.log("Editar");
@@ -313,6 +383,8 @@ window.operateEvents = {
 		    	$("#titulo").val(row.titulo);
 		    	$("#noticia").val(row.texto);
 		    	$("#modalCadastroNoticia").modal("show");
+		    	montarTabelaImagensNoticia();
+		    	listarImagensNoticia(row.id);
 			} else {
 				$("#idNoticiaPdf").val(row.id);
 				$("#tituloPdf").val(row.titulo);
@@ -321,6 +393,21 @@ window.operateEvents = {
 	    	
 	    },
 		'click .remove': function (e, value, row, index) {
+			console.log("Remover");
+			swal({
+				  title: "Atenção",
+				  text: "Realmente deseja deletar a notícia ?",
+				  icon: "warning",
+				  buttons: true,
+				  dangerMode: true,
+				})
+				.then((willDelete) => {
+				  if (willDelete) {
+					  deletarNoticia(row);
+				  } 
+				});
+		},
+		'click .remove_image': function (e, value, row, index) {
 			console.log("Remover");
 			swal({
 				  title: "Atenção",

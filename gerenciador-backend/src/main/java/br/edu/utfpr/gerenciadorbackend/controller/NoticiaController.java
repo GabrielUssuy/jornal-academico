@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.utfpr.gerenciadorbackend.model.Noticia;
+import br.edu.utfpr.gerenciadorbackend.service.ArquivoService;
 import br.edu.utfpr.gerenciadorbackend.service.NoticiaService;
 
 @RestController
@@ -18,10 +19,12 @@ import br.edu.utfpr.gerenciadorbackend.service.NoticiaService;
 public class NoticiaController {
 
 	private final NoticiaService noticiaService;
+	private final ArquivoService arquivoService;
 	
 	@Autowired
-	public NoticiaController(NoticiaService noticiaService) {
+	public NoticiaController(NoticiaService noticiaService, ArquivoService arquivoService) {
 		this.noticiaService = noticiaService;
+		this.arquivoService = arquivoService;
 	}
 
 	@PostMapping("/salvar")
@@ -46,6 +49,15 @@ public class NoticiaController {
 	public ResponseEntity<?> listar(@PathVariable("id") Integer idEdicao){
 		try {
 			return ResponseEntity.ok(noticiaService.listarPorEdicao(idEdicao));
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	@GetMapping("/{id}/listar")
+	public ResponseEntity<?> listarImagens(@PathVariable("id") Integer idNoticia){
+		try {
+			return ResponseEntity.ok(arquivoService.listarPorNoticia(idNoticia));
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().build();
 		}
