@@ -3,7 +3,9 @@ $(function(){
 	listarEdicoes();
 	
 	$("#btnNovaEdicao").click(function(){
-		salvarEdicao($("#formEdicao").serialize());
+		if($('#formEdicao').valid()){
+			salvarEdicao($("#formEdicao").serialize());
+		}
 	});
 	
 });
