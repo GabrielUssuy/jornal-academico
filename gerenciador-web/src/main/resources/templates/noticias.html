@@ -12,6 +12,7 @@
 <script	th:src="@{/componentes/bootstrap-table/bootstrap-table-pt-BR.min.js}"></script>
 <script	th:src="@{/componentes/bootstrap-table/bootstrap-table-editable.js}"></script>
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.17.0/dist/jquery.validate.min.js"></script>
 
 </head>
 
@@ -42,14 +43,14 @@
 							<div class="row">
 								<div class="col-xs-12 col-sm-12 col-md-3">
 									<div class="form-group">
-										<label for="mes">Mês:</label> <input type="text"
-											class="form-control" id="mes" name="mes" th:value="*{mes}"></input>
+										<label for="mes">Mês:</label> 
+										<input type="text" class="form-control" id="mes" name="mes" th:value="*{mes}" required='required'></input>
 									</div>
 								</div>
 								<div class="col-xs-12 col-sm-12 col-md-3">
 									<div class="form-group">
 										<label for="ano">Ano:</label> <input type="text"
-											class="form-control" id="ano" name="ano" th:value="*{ano}"></input>
+											class="form-control" id="ano" name="ano" th:value="*{ano}" required='required'></input>
 									</div>
 								</div>
 							</div>
@@ -109,7 +110,7 @@
 								<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 									<div class="form-group">
 										<label for="titulo">Titulo</label> <input type="text"
-											class="form-control" name="titulo" id="titulo" />
+											class="form-control" name="titulo" id="titulo" required='required'/>
 									</div>
 								</div>
 							</div>
@@ -119,7 +120,7 @@
 									<div class="form-group">
 										<label for="noticia">Notícia</label>
 										<textarea id="noticia" name="texto" rows="20"
-											style="width: 100%"></textarea>
+											style="width: 100%" required='required'></textarea>
 									</div>
 								</div>
 							</div>
@@ -178,7 +179,7 @@
 								<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 									<div class="form-group">
 										<label for="titulo">Titulo</label> <input type="text"
-											class="form-control" name="titulo" id="tituloPdf" />
+											class="form-control" name="titulo" id="tituloPdf" required='required'/>
 									</div>
 								</div>
 							</div>
@@ -189,7 +190,7 @@
 								<div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
 									<div class="form-group">
 										<label for="uploadPdf">PDF</label> 
-										<input type="file" name="fileUpload" id="fileUpload" />
+										<input type="file" name="fileUpload" id="fileUpload"/>
 									</div>
 								</div>
 							</div>
