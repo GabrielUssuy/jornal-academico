@@ -40,6 +40,9 @@ public class Arquivo implements Serializable{
 	@JoinColumn(name="id_noticia")
 	private Noticia noticia;
 	
+	@Column(name="status")
+	private String status;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -81,6 +84,12 @@ public class Arquivo implements Serializable{
 	}
 	public void setNoticia(Noticia noticia) {
 		this.noticia = noticia;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }

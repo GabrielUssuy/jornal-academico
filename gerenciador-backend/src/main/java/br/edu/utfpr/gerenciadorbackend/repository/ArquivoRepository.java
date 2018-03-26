@@ -9,7 +9,7 @@ import br.edu.utfpr.gerenciadorbackend.model.Arquivo;
 
 public interface ArquivoRepository extends JpaRepository<Arquivo, Integer> {
 
-	@Query("select a from Arquivo a where a.noticia.id = ?1")
+	@Query("select a from Arquivo a where a.noticia.id = ?1 and a.status = 'ATIVO'")
 	List<Arquivo> listarPorNoticia(Integer idNoticia);
 	
 }

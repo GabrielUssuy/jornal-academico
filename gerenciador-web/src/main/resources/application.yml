@@ -5,6 +5,7 @@ spring:
 url:
  arquivo_salvar: http://localhost:8081/backend/arquivo/salvar
  arquivo_listar_imagens_por_noticia: http://localhost:8081/backend/noticia/{id}/listar
+ arquivo_deletar: http://localhost:8081/backend/arquivo/deletar
  edicao_salvar: http://localhost:8081/backend/edicao/salvar
  edicao_deletar: http://localhost:8081/backend/edicao/deletar
  edicao_listar: http://localhost:8081/backend/edicao/listar

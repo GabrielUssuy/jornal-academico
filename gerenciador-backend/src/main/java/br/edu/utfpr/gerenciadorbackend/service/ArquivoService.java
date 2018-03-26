@@ -7,4 +7,5 @@ import br.edu.utfpr.gerenciadorbackend.model.Arquivo;
 public interface ArquivoService {
 	Arquivo salvar(Arquivo arquivo);
 	List<Arquivo> listarPorNoticia(Integer idNoticia);
+	boolean deletar(Arquivo arquivo);
 }

@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.utfpr.gerenciadorweb.enums.TipoArquivo;
-import br.edu.utfpr.gerenciadorweb.model.Edicao;
+import br.edu.utfpr.gerenciadorweb.model.Arquivo;
 import br.edu.utfpr.gerenciadorweb.model.JSonResult;
 import br.edu.utfpr.gerenciadorweb.model.Noticia;
 import br.edu.utfpr.gerenciadorweb.service.ArquivoService;
@@ -36,7 +36,6 @@ public class NoticiasController {
 	@GetMapping("/edicao/{id}")
 	public ModelAndView gerenciar(@PathVariable("id") Integer idEdicao) {
 		ModelAndView mv = new ModelAndView("noticias");
-		Edicao edicao = edicaoService.buscarPorId(idEdicao);
 		mv.addObject("edicao", edicaoService.buscarPorId(idEdicao));
 		return mv;
 	}
@@ -111,6 +110,19 @@ public class NoticiasController {
 			jr.setMensagem("Erro");
 		}
 
+		return jr;
+	}
+	
+	@PostMapping("/deletar-imagem")
+	public @ResponseBody JSonResult deletarImagem(Arquivo arquivo) {
+		JSonResult jr = new JSonResult();
+		try {
+			if(arquivoService.deletar(arquivo)) {
+				jr.setId(1);
+			}
+		} catch (Exception e) {
+			jr.setId(0);
+		}
 		return jr;
 	}
 	

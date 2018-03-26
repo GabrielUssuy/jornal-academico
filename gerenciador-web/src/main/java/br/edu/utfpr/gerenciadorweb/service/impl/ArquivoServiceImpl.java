@@ -59,8 +59,16 @@ public class ArquivoServiceImpl implements ArquivoService {
 
 	@Override
 	public List<Arquivo> listarPorNoticia(Integer idNoticia) throws Exception {
-		return restClient.consumeWithListResult(urls.getArquivo_listar_imagens_por_noticia().replace("{id}", idNoticia.toString()),
-				HttpMethod.GET, new ParameterizedTypeReference<List<Arquivo>>() {
+		return restClient.consumeWithListResult(
+				urls.getArquivo_listar_imagens_por_noticia().replace("{id}", idNoticia.toString()), HttpMethod.GET,
+				new ParameterizedTypeReference<List<Arquivo>>() {
+				});
+	}
+
+	@Override
+	public boolean deletar(Arquivo arquivo) throws Exception {
+		return (boolean) restClient.consumeWithSingleObjectResult(arquivo, urls.getArquivo_deletar(),
+				HttpMethod.DELETE, new ParameterizedTypeReference<Boolean>() {
 				});
 	}
 

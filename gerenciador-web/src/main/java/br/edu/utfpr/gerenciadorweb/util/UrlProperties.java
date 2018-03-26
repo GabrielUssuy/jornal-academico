@@ -13,6 +13,8 @@ public class UrlProperties implements Serializable {
 	
 	private String arquivo_salvar;
 	private String arquivo_listar_imagens_por_noticia;
+	private String arquivo_deletar;
+	private String arquivo_recuperar_por_id;
 	private String edicao_salvar;
 	private String edicao_deletar;
 	private String edicao_listar;
@@ -82,5 +84,16 @@ public class UrlProperties implements Serializable {
 	public void setToken_solicitar(String token_solicitar) {
 		this.token_solicitar = token_solicitar;
 	}
-	
+	public String getArquivo_deletar() {
+		return arquivo_deletar;
+	}
+	public void setArquivo_deletar(String arquivo_deletar) {
+		this.arquivo_deletar = arquivo_deletar;
+	}
+	public String getArquivo_recuperar_por_id() {
+		return arquivo_recuperar_por_id;
+	}
+	public void setArquivo_recuperar_por_id(String arquivo_recuperar_por_id) {
+		this.arquivo_recuperar_por_id = arquivo_recuperar_por_id;
+	}
 }

@@ -4,11 +4,13 @@ $(function(){
 	
 	$("#btnNovaNoticia").click(function(){
 		$("#modalCadastroNoticia").modal("show");
+		$("#boxModalImagensNoticia").hide();
 		montarTabelaImagensNoticia();
 	});
 	
 	$("#btnSubmeterPDF").click(function(){
 		$("#modalSubmeterPdf").modal("show");
+		$("#divUploadPdf").show();
 	});
 	
 	$("#btnSubmeter").click(function(){
@@ -27,16 +29,29 @@ $(function(){
 		salvarEdicao($("#formEdicao").serialize());
 	});
 	
+	$("#btnUploadImagemNoticia").click(function(){
+		var idNoticia = $("#idNoticia").val();
+		if(idNoticia !== null && idNoticia !== undefined && idNoticia !== ''){
+			uploadImagem(idNoticia);
+		}
+	});
+	
+	$("#modalCadastroNoticia").on('hidden.bs.modal', function () {
+		$("#idNoticia").val("");
+		$("#titulo").val("");
+		$("#noticia").val("");
+		$("#arquivoUpload").val("");
+		listarNoticias();
+	});
+	
+	$("#modalSubmeterPdf").on('hidden.bs.modal', function () {
+		$("#idNoticiaPdf").val('');
+		$("#tituloPdf").val('');
+		$("#fileUpload").val('');
+		listarNoticias();
+	});
+	
 });
-
-function fecharModalNoticia(){
-	$("#modalCadastroNoticia").modal("hide");
-	$("#idNoticia").val("");
-	$("#titulo").val("");
-	$("#noticia").val("");
-	$("#arquivoUpload").val("");
-	listarNoticias();
-}
 
 function salvarNoticia(form) {
 	form += '&tipo=PADRAO';
@@ -51,9 +66,9 @@ function salvarNoticia(form) {
 			$('#boxEdicoes').find('.overlay').show();
 		},
 		success : function(data) {
-			var idGerado = data.idGerado;
-			if(idGerado !== undefined && idGerado!== null){
-				uploadImagem(idGerado);
+			if(data.idGerado !== null && data.idGerado !== undefined && data.idGerado !== ''){
+				$("#idNoticia").val(data.idGerado);
+				$("#boxModalImagensNoticia").show();
 			}
 		},
 		error : function() {
@@ -205,6 +220,35 @@ function deletarNoticia(row){
 	});
 }
 
+function deletarImagemNoticia(row){
+	$.ajax({
+		dataType : 'json',
+		contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		type : 'post',
+		url : UtilsJS.context_path() + '/noticias/deletar-imagem/',
+		data: {
+			id: row.id,
+			nomeOriginal: row.nomeOriginal,
+			nome: row.nome,
+			extensao: row.extensao,
+			caminho: row.caminho,
+			tipo: row.tipo
+		},
+		beforeSend : function() {
+			$('#boxEdicoes').find('.overlay').show();
+		},
+		success : function(data) {
+			var idNoticia = $("#idNoticia").val();
+			listarImagensNoticia(idNoticia);
+		},
+		error : function() {
+		},
+		complete : function() {
+			$('#boxEdicoes').find('.overlay').hide();
+		}
+	});
+}
+
 
 function uploadImagem(id) {
 	var arquivo = $('#arquivoUpload')[0].files[0];
@@ -225,7 +269,8 @@ function uploadImagem(id) {
 				$('#boxModalNoticia').find('.overlay').show();
 			},
 			success : function(data) {
-				fecharModalNoticia();
+				$("#arquivoUpload").val("");
+				listarImagensNoticia(id);
 			},
 			error : function(e) {
 			},
@@ -234,7 +279,7 @@ function uploadImagem(id) {
 			}
 		});
 	} else {
-		fecharModalNoticia();
+		alert("Falha ao salvar noticia");
 	}
 
 }
@@ -263,7 +308,6 @@ function uploadNoticia(id) {
 				$('#boxModalUpload').find('.overlay').show();
 			},
 			success : function(data) {
-				
 			},
 			error : function(e) {
 			},
@@ -279,10 +323,6 @@ function uploadNoticia(id) {
 
 function fecharModalSubmeterPdf(){
 	$("#modalSubmeterPdf").modal("hide");
-	$("#idNoticiaPdf").val('');
-	$("#tituloPdf").val('');
-	$("#fileUpload").val('');
-	listarNoticias();
 }
 
 function montarTabelaImagensNoticia(){
@@ -383,12 +423,14 @@ window.operateEvents = {
 		    	$("#titulo").val(row.titulo);
 		    	$("#noticia").val(row.texto);
 		    	$("#modalCadastroNoticia").modal("show");
+		    	$("#boxModalImagensNoticia").show();
 		    	montarTabelaImagensNoticia();
 		    	listarImagensNoticia(row.id);
 			} else {
 				$("#idNoticiaPdf").val(row.id);
 				$("#tituloPdf").val(row.titulo);
 				$("#modalSubmeterPdf").modal("show");
+				$("#divUploadPdf").hide();
 			}
 	    	
 	    },
@@ -411,14 +453,14 @@ window.operateEvents = {
 			console.log("Remover");
 			swal({
 				  title: "Atenção",
-				  text: "Realmente deseja deletar a notícia ?",
+				  text: "Realmente deseja deletar a imagem ?",
 				  icon: "warning",
 				  buttons: true,
 				  dangerMode: true,
 				})
 				.then((willDelete) => {
 				  if (willDelete) {
-					  deletarNoticia(row);
+					  deletarImagemNoticia(row)
 				  } 
 				});
 		}

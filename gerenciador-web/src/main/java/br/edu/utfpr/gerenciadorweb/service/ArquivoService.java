@@ -11,5 +11,5 @@ public interface ArquivoService {
 	
 	Arquivo salvar(MultipartFile mfile, String tipo, Integer idNoticia) throws IllegalStateException, IOException;
 	List<Arquivo> listarPorNoticia(Integer idNoticia) throws Exception;
-
+	boolean deletar(Arquivo arquivo) throws Exception;
 }

@@ -13,6 +13,7 @@ public class Arquivo implements Serializable {
 	private String caminho;
 	private String tipo;
 	private Noticia noticia;
+	private String status;
 	
 	public Integer getId() {
 		return id;
@@ -55,6 +56,12 @@ public class Arquivo implements Serializable {
 	}
 	public void setNoticia(Noticia noticia) {
 		this.noticia = noticia;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
 }
