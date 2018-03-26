@@ -14,9 +14,16 @@ $(function(){
 	});
 	
 	$("#btnSubmeter").click(function(){
-			if($('#formNoticiaPdf').valid()){
+		if($('#formNoticiaPdf').valid()){
 			$("#btnSubmeter").prop("disabled", true);
 			salvarNoticiaPDF($("#formNoticiaPdf").serialize());
+		}
+	});
+	
+	$("#btnSalvarNoticiaPdf").click(function(){
+		if($('#formNoticiaPdf').valid()){
+			$("#btnSubmeter").prop("disabled", true);
+			editarNoticiaPDF($("#formNoticiaPdf").serialize());
 		}
 	});
 	
@@ -52,6 +59,8 @@ $(function(){
 		$("#idNoticiaPdf").val('');
 		$("#tituloPdf").val('');
 		$("#fileUpload").val('');
+		$("#btnSubmeter").show();
+		$("#btnSalvarNoticiaPdf").hide();
 		listarNoticias();
 	});
 	
@@ -151,6 +160,31 @@ function salvarNoticiaPDF(form) {
 		$("#btnSubmeter").prop("disabled", false);
 	}
 	
+}
+
+
+function editarNoticiaPDF(form) {
+	form += '&tipo=PDF';
+	form += '&edicao.id='+$("#idEdicao").val();
+		$.ajax({
+			dataType : 'json',
+			contentType : "application/x-www-form-urlencoded; charset=utf-8",
+			type : 'post',
+			url : UtilsJS.context_path() + '/noticias/salvar',
+			data: form,
+			beforeSend : function() {
+				$('#boxEdicoes').find('.overlay').show();
+			},
+			success : function(data) {
+				swal("Sucesso!", "Notícia salva com sucesso!", "success");
+			},
+			error : function() {
+			},
+			complete : function() {
+				$('#boxEdicoes').find('.overlay').hide();
+				$("#btnSubmeter").prop("disabled", false);
+			}
+		});
 }
 
 function listarNoticias(){
@@ -446,6 +480,8 @@ window.operateEvents = {
 				$("#tituloPdf").val(row.titulo);
 				$("#modalSubmeterPdf").modal("show");
 				$("#divUploadPdf").hide();
+				$("#btnSubmeter").hide();
+				$("#btnSalvarNoticiaPdf").show();
 			}
 	    	
 	    },
