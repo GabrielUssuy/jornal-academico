@@ -80,6 +80,7 @@ function salvarNoticia(form) {
 		},
 		success : function(data) {
 			if(data.idGerado !== null && data.idGerado !== undefined && data.idGerado !== ''){
+				swal("Sucesso", "Noticia salva com sucesso !", "success");
 				$("#idNoticia").val(data.idGerado);
 				$("#boxModalImagensNoticia").show();
 			}
@@ -103,15 +104,7 @@ function salvarEdicao(form){
 //			$('#boxEdicoes').find('.overlay').show();
 		},
 		success : function(data) {
-			if (data.id == 1) {
-				swal("Sucesso", "Edição salva com sucesso !", "success")
-//				var edicao = data.resultObject;
-//				window.location.href = UtilsJS.context_path() + '/noticias/edicao/'+edicao.id;
-			} else if (data.id == 2) {
-				criarAlert('informacaoEdicao', 'warning', data.mensagem);
-			} else {
-				criarAlert('informacaoEdicao', 'error', data.mensagem);
-			}
+			swal("Sucesso", "Edição salva com sucesso !", "success");
 		},
 		error : function() {
 			criarAlert('informacaoEdicao','error','Ocorreu um erro durante ao salvar a edição, por favor, tente novamente mais tarde.');
